@@ -191,6 +191,7 @@ class ComposerStaticInitae1551ded85f71fc869cf8458bd257a1
     );
 
     public static $classMap = array (
+        'App\\Controller\\LuckyController' => __DIR__ . '/../..' . '/src/Controller/LuckyController.php',
         'App\\Kernel' => __DIR__ . '/../..' . '/src/Kernel.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'Normalizer' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/Resources/stubs/Normalizer.php',
