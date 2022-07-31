@@ -1,0 +1,13 @@
+{# default/index.html.twig #}
+
+{% extends "base.html.twig" %}
+
+{% block body -%}
+    Price of the Bitcoin (USD): <b>$ {{ bitcoin.price_usd }}</b> <br>
+    Price of the Ethereum (EUR): <b>€ {{ ethereum.price_eur }}</b> <br>
+
+    {# Imprimir los arrays enteros en la vista #}
+    {{dump(bitcoin)}}
+
+    {{dump(ethereum)}}
+{% endblock %}
