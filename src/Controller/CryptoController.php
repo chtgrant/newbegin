@@ -5,13 +5,10 @@ namespace App\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-// Importante: Incluir GuzzleClient
-use GuzzleHttp\Client;
-
 class CryptoController extends AbstractController
 {
     /**
-     * @Route("/crypto/{coin}", name="homepage")
+     * @Route("/crypto/{coin}")
      */
     public function index($coin = 'bitcoin')
     {
