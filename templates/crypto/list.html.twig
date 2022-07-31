@@ -3,9 +3,6 @@
 {% extends "base.html.twig" %}
 
 {% block body -%}
-    Price of the {{ coin }} (USD): <b>$ {{ bitcoin.tickers.0.last }}</b> <br>
-
-    {# Imprimir los arrays enteros en la vista #}
-    {{dump(bitcoin)}}
+    Price of the <b>{{ coin }}</b> (USD): <b>$ {{ crypto.tickers.0.last }}</b> <br>
 
 {% endblock %}

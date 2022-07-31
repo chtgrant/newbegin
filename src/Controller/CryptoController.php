@@ -11,23 +11,16 @@ use GuzzleHttp\Client;
 class CryptoController extends AbstractController
 {
     /**
-     * @Route("/crypto/", name="homepage")
+     * @Route("/crypto/{coin}", name="homepage")
      */
     public function index($coin = 'bitcoin')
     {
-        // Obtener información sobre la criptomoneda bitcoin
-        $bitcoinInfo = $this->getCryptoCurrencyInformation($coin);
-
-        // Información sobre ethereum pero en Euros en vez del dolar americano
-        //$ethereumInfo = $this->getCryptoCurrencyInformation("ethereum", "EUR");
-
-        // y así con más de 1010 criptomonedas
+        $cryptoInfo = $this->getCryptoCurrencyInformation($coin);
 
         // Envía la información de las criptomonedas a una vista Twig
         return $this->render("crypto/list.html.twig", [
-            "bitcoin" => $bitcoinInfo,
-            "coin" => ucfirst($coin)
-            //"ethereum" => $ethereumInfo
+            "crypto" => $cryptoInfo, // Array with all crypto info
+            "coin" => ucfirst($coin) // Name of the Crypto
         ]);
     }
 
@@ -35,8 +28,6 @@ class CryptoController extends AbstractController
      * Obtiene la información que ofrece la API gratuita de CoinMarketCap de una criptomoneda.
      * De manera predeterminada se usa el dolar americano como moneda de conversión.
      * 
-     * ADVERTENCIA: No uses este código en producción, esto es solo para explicar como funciona la API
-     * y cómo se obtiene la información. Lee el paso 3 para la implementación final
      *
      * @param string $currencyId Identificador de la moneda
      * @param string $convertCurrency
@@ -44,37 +35,15 @@ class CryptoController extends AbstractController
      * @return mixed 
      */
     private function getCryptoCurrencyInformation($currencyId, $convertCurrency = "USD"){
-        /*// Obtener un nuevo cliente Http de Guzzle
-        $client = new Client();
-
-        // Define la URL a la que se consultará con los parámetro necesarios
-        $requestURL = "https://sandbox-api.coinmarketcap.com/v1/cryptocurrency/listings/latest";
-
-        // Ejecutar la solicitud
-        $singleCurrencyRequest = $client->request('GET', $requestURL);
-        
-        // Obtener el cuerpo de la respuesta en formato array
-        $body = json_decode($singleCurrencyRequest->getBody() , true)[0];
-
-        // Si hubo un error en la consulta, lanzar una excepción
-        if(array_key_exists("error" , $body)){
-            throw $this->createNotFoundException(sprintf('Fallo al solicitar información sobre la criptomoneda : $s', $body["error"]));
-        }*/
 
         $url = 'https://api.coingecko.com/api/v3/coins/'.$currencyId.'/tickers';
-        /*$parameters = [
-        'start' => '1',
-        'limit' => '5000',
-        'convert' => 'USD'
-        ];*/
 
         $headers = [
         'Accepts: application/json',
         'X-CMC_PRO_API_KEY: b54bcf4d-1bca-4e8e-9a24-22ff2c3d462c'
         ];
-        //$qs = http_build_query($parameters); // query string encode the parameters
-        $request = "{$url}"; // create the request URL ?{$qs}
-
+        
+        $request = "{$url}"; // create the request URL 
 
         $curl = curl_init(); // Get cURL resource
         // Set cURL options
